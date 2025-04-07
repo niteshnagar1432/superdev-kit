@@ -1,6 +1,6 @@
 {
     "name": "superdev-kit",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "A powerful utility kit for developers including status codes, custom Axios, date formatter, and video-to-image tools.",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
