@@ -1,9 +1,11 @@
-import { default_status_config } from "./config/default_config";
+import { default_api_config, default_status_config } from "./config/default_config";
 
 let isAuthenticated = false;
 
 interface SuperDevKitConfig {
-    api_config?: object;
+    api_config?: {
+        base_url?: string;
+    };
     status_code_config?: {
         status_code?: boolean;
         status_message?: boolean;
@@ -13,7 +15,7 @@ interface SuperDevKitConfig {
 }
 
 let internal_config: SuperDevKitConfig = {
-    // api_config: null,
+    api_config: default_api_config,
     status_code_config: default_status_config,
     // date_config: null,
 };
@@ -28,6 +30,10 @@ export function init(key: string, config: SuperDevKitConfig = {}) {
                 ...default_status_config,
                 ...(config.status_code_config || {}),
             },
+            api_config:{
+                ...default_api_config,
+                ...(config.api_config || {}),
+            }
         };
         console.log("✅ superdev-kit initialized");
     } else {

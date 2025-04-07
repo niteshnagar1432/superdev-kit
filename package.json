@@ -30,6 +30,7 @@
         "typescript": "^5.3.3"
     },
     "dependencies": {
+        "axios": "^1.8.4",
         "superdev-kit": "file:"
     }
 }

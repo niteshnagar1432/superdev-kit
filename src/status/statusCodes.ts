@@ -5,11 +5,13 @@ interface StatusCodeEntry {
 }
 
 const statusCodes: Record<number, StatusCodeEntry> = {
+    // Informational
     100: { status: true, message: "Continue", status_code: 100 },
     101: { status: true, message: "Switching Protocols", status_code: 101 },
     102: { status: true, message: "Processing", status_code: 102 },
     103: { status: true, message: "Early Hints", status_code: 103 },
 
+    // Success
     200: { status: true, message: "OK", status_code: 200 },
     201: { status: true, message: "Created", status_code: 201 },
     202: { status: true, message: "Accepted", status_code: 202 },
@@ -21,6 +23,7 @@ const statusCodes: Record<number, StatusCodeEntry> = {
     208: { status: true, message: "Already Reported", status_code: 208 },
     226: { status: true, message: "IM Used", status_code: 226 },
 
+    // Redirection
     300: { status: true, message: "Multiple Choices", status_code: 300 },
     301: { status: true, message: "Moved Permanently", status_code: 301 },
     302: { status: true, message: "Found", status_code: 302 },
@@ -30,6 +33,7 @@ const statusCodes: Record<number, StatusCodeEntry> = {
     307: { status: true, message: "Temporary Redirect", status_code: 307 },
     308: { status: true, message: "Permanent Redirect", status_code: 308 },
 
+    // Client Error
     400: { status: false, message: "Bad Request", status_code: 400 },
     401: { status: false, message: "Unauthorized", status_code: 401 },
     402: { status: false, message: "Payment Required", status_code: 402 },
@@ -60,6 +64,7 @@ const statusCodes: Record<number, StatusCodeEntry> = {
     431: { status: false, message: "Request Header Fields Too Large", status_code: 431 },
     451: { status: false, message: "Unavailable For Legal Reasons", status_code: 451 },
 
+     // 5** Server Error
     500: { status: false, message: "Internal Server Error", status_code: 500 },
     501: { status: false, message: "Not Implemented", status_code: 501 },
     502: { status: false, message: "Bad Gateway", status_code: 502 },
