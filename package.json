@@ -1,0 +1,35 @@
+{
+    "name": "superdev-kit",
+    "version": "1.0.0",
+    "description": "A powerful utility kit for developers including status codes, custom Axios, date formatter, and video-to-image tools.",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "scripts": {
+        "build": "tsc",
+        "test": "node test/test.js"
+    },
+    "keywords": [
+        "developer",
+        "axios",
+        "status-code",
+        "date-formatter",
+        "video-utils",
+        "superdev"
+    ],
+    "author": "Nitesh Nagar",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/your-username/superdev-kit"
+    },
+    "files": [
+        "dist",
+        "README.md"
+    ],
+    "devDependencies": {
+        "typescript": "^5.3.3"
+    },
+    "dependencies": {
+        "superdev-kit": "file:"
+    }
+}

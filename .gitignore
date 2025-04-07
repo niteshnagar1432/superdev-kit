@@ -1,0 +1,35 @@
+# Node modules
+node_modules/
+
+# Build output
+dist/
+build/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Env files (if any)
+.env
+.env.*
+
+# TypeScript cache
+*.tsbuildinfo
+
+# VS Code settings
+.vscode/
+
+# Coverage reports
+coverage/
+
+# Output from tsc when using incremental build mode
+*.tsbuildinfo
+
+# IDE-specific
+.idea/
