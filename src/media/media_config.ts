@@ -4,6 +4,8 @@ import { generateThumbnails, Thumbnail } from "./convertVideoToThumb";
 /**
  * Wrapper to validate auth and inputs before generating thumbnails
  */
+const isBrowser = typeof window !== 'undefined'; // Check if running in the browser
+
 const convertVideoToThumb = (
     file: File,
     count: number = 2,
@@ -17,7 +19,12 @@ const convertVideoToThumb = (
         throw new Error("File is required.");
     }
 
-    return generateThumbnails(file, count, savePath);
+    // If it's a browser environment, do not allow savePath
+    if (isBrowser && savePath) {
+        throw new Error("Saving files to the system is not allowed in the browser. Save path is ignored.");
+    }
+
+    return generateThumbnails(file, count, isBrowser ? '' : savePath);
 };
 
 export { convertVideoToThumb };

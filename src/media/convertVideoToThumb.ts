@@ -17,6 +17,8 @@ export const generateThumbnails = (
         const video = document.createElement("video");
         const canvas = document.createElement("canvas");
         const context = canvas.getContext("2d");
+        // Type assertion to bypass TypeScript error
+        (canvas as HTMLCanvasElement & { willReadFrequently: boolean }).willReadFrequently = true;
 
         if (!context) {
             reject("Failed to get canvas context");
