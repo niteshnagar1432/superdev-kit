@@ -13,19 +13,22 @@ A lightweight utility kit for modern developers. Includes handy tools like:
 
 ```bash
 npm install superdev-kit
+```
 
-🚀 Getting Started
+## 🚀 Getting Started
 First, import the functions and utilities you need from the package:
 
 ```bash
 import { init, getConfig } from "superdev-kit";
-
 ```
 
-🛠️ 1. Initialize the SDK (optional)
-If you want to set global config like access keys or base API URL:
+## 🛠️ Initialize the SDK
 
-ts
-Copy
-Edit
-init("superdev-access-key"); // https://superdev.in
+To start using the SDK, you need a **SuperDev Access Key**.  
+If you don't have one yet, you can get it from [https://superdev.in](https://superdev.in).
+
+Once you have the key, initialize the SDK like this:
+
+```js
+init("your-superdev-access-key"); // Get your key from https://superdev.in
+```
