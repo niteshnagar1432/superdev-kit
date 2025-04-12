@@ -26,6 +26,9 @@ const convertVideoToThumb = (
     endTime?: number;
   } = {}
 ): Promise<Thumbnail[]> => {
+
+    console.log("In This function.")
+
   if (!checkAuth()) {
     throw new Error("Unauthorized: Please call init() with a valid API key.");
   }
@@ -40,7 +43,7 @@ const convertVideoToThumb = (
     throw new Error("Saving files to the system is not allowed in the browser.");
   }
 
-  const path = isBrowser ? undefined : savePath;
+  const path = isBrowser ? '' : savePath;
 
   // 🔹 Single time capture
   if (typeof captureTime === "number") {
@@ -58,8 +61,9 @@ const convertVideoToThumb = (
     return generateThumbnailsInRange(file, startTime, endTime, count, path);
   }
 
+  console.log("Generating full thumbnails...");
   // 🔹 Full video duration capture
   return generateThumbnails(file, count, path);
 };
 
-export { convertVideoToThumb, Thumbnail };
+export { convertVideoToThumb };
