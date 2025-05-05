@@ -27,8 +27,6 @@ const convertVideoToThumb = (
   } = {}
 ): Promise<Thumbnail[]> => {
 
-    console.log("In This function.")
-
   if (!checkAuth()) {
     throw new Error("Unauthorized: Please call init() with a valid API key.");
   }
@@ -61,7 +59,6 @@ const convertVideoToThumb = (
     return generateThumbnailsInRange(file, startTime, endTime, count, path);
   }
 
-  console.log("Generating full thumbnails...");
   // 🔹 Full video duration capture
   return generateThumbnails(file, count, path);
 };

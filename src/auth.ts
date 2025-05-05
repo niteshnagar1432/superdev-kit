@@ -21,24 +21,20 @@ let internal_config: SuperDevKitConfig = {
 };
 
 export function init(key: string, config: SuperDevKitConfig = {}) {
-    if (key === "superdev-access-key") {
-        isAuthenticated = true;
-        internal_config = {
-            ...internal_config,
-            ...config,
-            status_code_config: {
-                ...default_status_config,
-                ...(config.status_code_config || {}),
-            },
-            api_config:{
-                ...default_api_config,
-                ...(config.api_config || {}),
-            }
-        };
-        console.log("✅ superdev-kit initialized");
-    } else {
-        throw new Error("Invalid API key. Access denied to superdev-kit.");
-    }
+    isAuthenticated = true;
+    internal_config = {
+        ...internal_config,
+        ...config,
+        status_code_config: {
+            ...default_status_config,
+            ...(config.status_code_config || {}),
+        },
+        api_config: {
+            ...default_api_config,
+            ...(config.api_config || {}),
+        }
+    };
+    console.log("✅ superdev-kit initialized");
 }
 
 export function checkAuth(): boolean {
