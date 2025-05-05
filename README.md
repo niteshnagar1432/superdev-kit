@@ -290,3 +290,230 @@ const proxyMedia = async () => {
 
 **🔐 Note:** All methods accept an optional access token which, if provided, will be sent via `Authorization: Bearer` header.
 
+## 🎞️ Video Frame to Image Cropper – `convertVideoToThumb`
+
+Easily extract thumbnails from video files using `convertVideoToThumb`. This utility provides multiple configuration options such as capture time, frame count, range slicing, and optional file saving. It's suitable for preview generation, media summarization, or visual indexing.
+
+### 📦 Import & Usage
+
+```js
+import { convertVideoToThumb } from "superdev-kit";
+```
+
+---
+
+### 📸 Capture a Single Frame at Specific Time
+
+```js
+await convertVideoToThumb('test.mp4', {
+  captureTime: 5 // Capture frame at 5 seconds
+});
+```
+
+---
+
+### 🕒 Extract Frames Between Time Range
+
+```js
+await convertVideoToThumb('test.mp4', {
+  startTime: 5, // Start at 5 seconds
+  endTime: 10   // End at 10 seconds
+});
+```
+
+---
+
+### 🔢 Generate a Fixed Number of Thumbnails
+
+```js
+await convertVideoToThumb('test.mp4', {
+  count: 5 // Generate 5 thumbnails from start to end of video
+});
+```
+
+---
+
+### 🧠 Advanced: Combine Time Range + Count
+
+```js
+await convertVideoToThumb('test.mp4', {
+  startTime: 5,
+  endTime: 10,
+  count: 5
+});
+```
+
+---
+
+### 💾 Save Thumbnails to Disk
+
+```js
+await convertVideoToThumb('test.mp4', {
+  startTime: 5,
+  endTime: 10,
+  count: 5,
+  savePath: 'thumbnails' // Optional path to save images
+});
+```
+
+---
+
+### 📤 Output
+
+- If `savePath` is provided:  
+  Returns an array of absolute file paths where thumbnails are saved.
+
+- If `savePath` is omitted:  
+  Returns an array of in-memory image **Blob files** (useful for uploading or further processing without writing to disk).
+
+```ts
+// Example Output
+[
+  Blob, Blob, Blob, Blob, Blob
+]
+
+// OR
+
+[
+  '/absolute/path/to/thumbnails/thumb_1.jpg',
+  '/absolute/path/to/thumbnails/thumb_2.jpg',
+  ...
+]
+```
+
+---
+
+### 📝 Notes
+
+- Works well with local `.mp4`, `.mov`, `.webm`, and similar formats.
+- Can be used in Node.js environments for automated media processing pipelines.
+- Ensure the input video exists and is readable at the specified path.
+
+> 💡 Use this for generating video highlights, YouTube-style thumbnails, or short previews.
+
+## ☁️ Amazon S3 Integration – `AWS_S3`
+
+`superdev-kit` provides built-in support for uploading and managing files on **Amazon S3**, with both single and multipart upload capabilities. This makes it ideal for managing media assets, large videos, and general file storage.
+
+---
+
+### 🔧 Initialization
+
+```js
+import { init, AWS_S3 } from "superdev-kit";
+
+init("your-superdev-access-key", {
+  s3_config: {
+    region: "your_region",
+    access_key_id: "your_access_key",
+    secret_access_key: "your_secret_key",
+    bucket_name: "your_bucket_name",
+    project_name: "your_project_name"
+  }
+});
+```
+
+---
+
+### 📤 Upload a Single File
+
+```js
+const uploadFile = async (file) => {
+  try {
+    const response = await AWS_S3.uploadFile(
+      file,
+      (progress) => {
+        console.log(`Uploaded ${progress}%`); // Optional progress callback
+      },
+      "test-media" // Optional folder name
+    );
+    console.log(response);
+  } catch (error) {
+    console.error(error);
+  }
+};
+```
+
+#### ✅ Output
+```json
+{
+  "Bucket": "your_bucket_name",
+  "Key": "your_project_name/test-media/your_file_name",
+  "ETag": "file_etag",
+  "VersionId": "file_version_id",
+  "ServerSideEncryption": "AES256",
+  "Location": "https://your_bucket.s3.amazonaws.com/your_project_name/test-media/your_file_name",
+  "KeyId": "your_file_key_id"
+}
+```
+
+---
+
+### 🎥 Upload a Large Video (Multipart Upload)
+
+```js
+const uploadLargeVideo = async (file) => {
+  try {
+    const response = await AWS_S3.uploadLargeVideo(
+      file,
+      (progress) => {
+        console.log(`Uploaded ${progress}%`); // Optional progress callback
+      },
+      "videos" // Optional folder name
+    );
+    console.log(response);
+  } catch (error) {
+    console.error(error);
+  }
+};
+```
+
+#### ✅ Output (Same structure as above)
+```json
+{
+  "Bucket": "your_bucket_name",
+  "Key": "your_project_name/videos/your_file_name",
+  "ETag": "file_etag",
+  "VersionId": "file_version_id",
+  "ServerSideEncryption": "AES256",
+  "Location": "https://your_bucket.s3.amazonaws.com/your_project_name/videos/your_file_name",
+  "KeyId": "your_file_key_id"
+}
+```
+
+---
+
+### 🗑️ Delete File from S3
+
+```js
+const deleteFile = async (key) => {
+  try {
+    const response = await AWS_S3.deleteFile(key);
+    console.log(response);
+  } catch (error) {
+    console.error(error);
+  }
+};
+```
+
+#### 🔑 Input
+- `key`: Full object key (e.g. `"your_project_name/test-media/your_file_name"`)
+
+#### ✅ Output
+```js
+true
+```
+
+---
+
+### 💡 Use Cases
+
+- Upload images, PDFs, and static files
+- Upload large videos with real-time progress tracking
+- Automate file cleanup by deleting unused assets
+- Integrate with other features like video thumbnail generation or user uploads
+
+---
+
+> 🔒 Ensure that your AWS IAM policy has permissions for `s3:PutObject`, `s3:GetObject`, and `s3:DeleteObject` for the configured bucket.
+
