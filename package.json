@@ -40,6 +40,7 @@
     "dependencies": {
         "@aws-sdk/client-s3": "^3.802.0",
         "@aws-sdk/lib-storage": "^3.802.0",
-        "axios": "^1.8.4"
+        "axios": "^1.8.4",
+        "superdev-kit": "file:"
     }
 }
