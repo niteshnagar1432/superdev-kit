@@ -2,10 +2,16 @@
     "name": "superdev-kit",
     "version": "1.0.5",
     "description": "A powerful utility kit for developers including status codes, custom Axios, date formatter, and video-to-image tools.",
-    "main": "dist/index.js",
-    "types": "dist/index.d.ts",
+    "main": "./dist/index.cjs",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+        "import": "./dist/index.js",
+        "require": "./dist/index.cjs"
+    },
+    "type": "module",
     "scripts": {
-        "build": "tsc",
+        "build": "tsup",
         "test": "node test/test.js"
     },
     "keywords": [
@@ -28,9 +34,12 @@
     ],
     "devDependencies": {
         "@types/node": "^22.14.1",
+        "tsup": "^8.4.0",
         "typescript": "^5.3.3"
     },
     "dependencies": {
+        "@aws-sdk/client-s3": "^3.802.0",
+        "@aws-sdk/lib-storage": "^3.802.0",
         "axios": "^1.8.4",
         "superdev-kit": "file:"
     }

@@ -1,14 +1,15 @@
 {
-    "compilerOptions": {
-      "target": "ES6",
-      "module": "CommonJS",
-      "rootDir": "./",
-      "outDir": "dist",
-      "strict": true,
-      "esModuleInterop": true,
-      "resolveJsonModule": true,
-      "declaration": true,
-      "types": ["node"]
-    },
-    "include": ["src", "index.ts"]
+  "compilerOptions": {
+    "target": "ES6",
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "strict": true,
+    "declaration": true,
+    "declarationDir": "dist",
+    "outDir": "dist",
+    "types": ["node"]
+  },
+  "include": ["src", "index.ts"]
 }

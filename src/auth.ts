@@ -1,4 +1,4 @@
-import { default_api_config, default_status_config } from "./config/default_config";
+import { default_api_config, default_s3_config, default_status_config } from "./config/default_config";
 
 let isAuthenticated = false;
 
@@ -12,12 +12,20 @@ interface SuperDevKitConfig {
         status_boolean?: boolean;
     };
     date_config?: object;
+    s3_config?: {
+        bucket_name?: string;
+        access_key_id?: string;
+        secret_access_key?: string;
+        region?: string;
+        project_name?: string;
+    };
 }
 
 let internal_config: SuperDevKitConfig = {
     api_config: default_api_config,
     status_code_config: default_status_config,
     // date_config: null,
+    s3_config: default_s3_config,
 };
 
 export function init(key: string, config: SuperDevKitConfig = {}) {
@@ -32,7 +40,11 @@ export function init(key: string, config: SuperDevKitConfig = {}) {
         api_config: {
             ...default_api_config,
             ...(config.api_config || {}),
-        }
+        },
+        s3_config: {
+            ...default_s3_config,
+            ...(config.s3_config || {}),
+        },
     };
     console.log("✅ superdev-kit initialized");
 }
