@@ -1,4 +1,4 @@
-import { checkAuth } from "../auth";
+import { checkAuth, getConfig } from "../auth";
 import {
   generateThumbnails,
   generateThumbnailsInRange,
@@ -26,6 +26,12 @@ const convertVideoToThumb = (
     endTime?: number;
   } = {}
 ): Promise<Thumbnail[]> => {
+
+  const internal_config = getConfig().file_config?.service_status;
+
+  if (!internal_config) {
+    throw new Error("Please call init() with a valid file_config with service_status set to true.");
+  }
 
   if (!checkAuth()) {
     throw new Error("Unauthorized: Please call init() with a valid API key.");
@@ -62,5 +68,7 @@ const convertVideoToThumb = (
   // 🔹 Full video duration capture
   return generateThumbnails(file, count, path);
 };
+
+
 
 export { convertVideoToThumb };

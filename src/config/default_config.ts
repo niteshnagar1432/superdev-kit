@@ -2,10 +2,10 @@ export const default_status_config = {
     status_code: true,
     status_message: true,
     status_boolean: true,
-};  
+};
 
 export const default_api_config = {
-    base_url:'',
+    base_url: '',
 };
 
 export const default_s3_config = {
@@ -14,4 +14,8 @@ export const default_s3_config = {
     secret_access_key: '',
     region: '',
     project_name: '',
+};
+
+export const default_file_config = {
+    service_status: false,
 };

@@ -6,6 +6,8 @@ import { formatDate } from "./src/date/date";
 import { getStatus } from "./src/status/getStatus";
 import { convertVideoToThumb } from "./src/media/media_config"
 import { AWS_S3 } from './src/s3/s3_config'
+import { text } from "./src/text/config";
+
 
 export {
   init,
@@ -16,4 +18,5 @@ export {
   formatDate,
   convertVideoToThumb,
   AWS_S3,
+  text,
 };
