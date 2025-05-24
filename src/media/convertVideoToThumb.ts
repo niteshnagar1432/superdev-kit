@@ -1,23 +1,12 @@
-let fs: any;
-let path: any;
-const isNode = typeof window === 'undefined';
-
-if (!isNode) {
-    fs = require("fs");
-    path = require("path");
-}
-
 export interface Thumbnail {
     width: number;
     height: number;
     image: string;
-    filePath?: string; // Only present if path was provided
 }
 
 export const generateThumbnails = (
     file: File,
     count: number = 2,
-    savePath?: string
 ): Promise<Thumbnail[]> => {
     return new Promise((resolve, reject) => {
         const video = document.createElement("video");
@@ -57,14 +46,6 @@ export const generateThumbnails = (
 
                         const thumbnail: Thumbnail = { width, height, image };
 
-                        if (savePath) {
-                            const base64Data = image.replace(/^data:image\/jpeg;base64,/, "");
-                            const fileName = `thumb-${Date.now()}-${i + 1}.jpg`;
-                            const fullPath = path.join(savePath, fileName);
-                            fs.writeFileSync(fullPath, base64Data, 'base64');
-                            thumbnail.filePath = fullPath;
-                        }
-
                         generatedThumbnails.push(thumbnail);
                         res();
                     };
@@ -83,7 +64,6 @@ export const generateThumbnails = (
 export const generateThumbnailAtTime = (
     file: File,
     timestamp: number,
-    savePath?: string
 ): Promise<Thumbnail> => {
     return new Promise((resolve, reject) => {
         const isBrowser = typeof window !== 'undefined';
@@ -122,14 +102,6 @@ export const generateThumbnailAtTime = (
                 const image = canvas.toDataURL("image/jpeg");
                 const thumbnail: Thumbnail = { width, height, image };
 
-                if (!isBrowser && savePath) {
-                    const base64Data = image.replace(/^data:image\/jpeg;base64,/, "");
-                    const fileName = `thumb-${Date.now()}-${Math.floor(timestamp)}s.jpg`;
-                    const fullPath = path.join(savePath, fileName);
-                    fs.writeFileSync(fullPath, base64Data, 'base64');
-                    thumbnail.filePath = fullPath;
-                }
-
                 resolve(thumbnail);
             };
         };
@@ -144,8 +116,7 @@ export const generateThumbnailsInRange = (
     file: File,
     startTime: number,
     endTime: number,
-    count: number = 2,
-    savePath?: string
+    count: number = 2
 ): Promise<Thumbnail[]> => {
     return new Promise((resolve, reject) => {
         const isBrowser = typeof window !== 'undefined';
@@ -190,14 +161,6 @@ export const generateThumbnailsInRange = (
                         context.drawImage(video, 0, 0, width, height);
                         const image = canvas.toDataURL("image/jpeg");
                         const thumbnail: Thumbnail = { width, height, image };
-
-                        if (!isBrowser && savePath) {
-                            const base64Data = image.replace(/^data:image\/jpeg;base64,/, "");
-                            const fileName = `thumb-${Date.now()}-${Math.floor(time)}s.jpg`;
-                            const fullPath = path.join(savePath, fileName);
-                            fs.writeFileSync(fullPath, base64Data, 'base64');
-                            thumbnail.filePath = fullPath;
-                        }
 
                         thumbnails.push(thumbnail);
                         res();
