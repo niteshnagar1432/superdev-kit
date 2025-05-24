@@ -1,5 +1,11 @@
-import fs from 'fs';
-import path from 'path';
+let fs: any;
+let path: any;
+const isNode = typeof window === 'undefined';
+
+if (!isNode) {
+    fs = require("fs");
+    path = require("path");
+}
 
 export interface Thumbnail {
     width: number;
